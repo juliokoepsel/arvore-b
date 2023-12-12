@@ -1,6 +1,6 @@
 package arvores;
 
-public class TesteArvoreB {
+public class TesteArvore {
     public static void main(String[] args) {
 
         ArvoreB arvore = new ArvoreB(3);
