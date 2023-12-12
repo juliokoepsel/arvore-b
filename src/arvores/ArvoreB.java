@@ -6,7 +6,7 @@ package arvores;
 // https://prepinsta.com/data-structures/deletion-in-b-tree/
 
 class ArvoreB {   
-    private int T; // Ordem da árvore
+    private int T; // Grau mínimo da árvore
 
     // Nodo da árvore
     public class Nodo {          
@@ -26,7 +26,7 @@ class ArvoreB {
     }
  
     // Construtor ArvoreB
-    public ArvoreB(int t) {             
+    public ArvoreB(int t) {
         T = t;
         raiz = new Nodo();
         raiz.n = 0;
@@ -50,8 +50,7 @@ class ArvoreB {
         }
         if (x.folha) {
             return null;
-        }
-        else {
+        } else {
             return contem(x.filho[i], chave);    
         }
     }
@@ -79,7 +78,7 @@ class ArvoreB {
 
         for (int j = x.n - 1; j >= pos; j--) {	        
             x.chave[j + 1] = x.chave[j];
-        } 
+        }
         x.chave[pos] = y.chave[T - 1];
         x.n = x.n + 1;
     } 
@@ -96,8 +95,7 @@ class ArvoreB {
             s.filho[0] = r;
             dividir (s, 0, r);
             inserirNodo(s, chave);
-        }
-        else {	        
+        } else {	        
             inserirNodo(r, chave);
         }       
     } 
@@ -112,8 +110,7 @@ class ArvoreB {
             }	    
             x.chave[i + 1] = k;
             x.n = x.n + 1;
-        }
-        else {	    
+        } else {	    
             int i = 0;
 
             for (i = x.n - 1; i >= 0 && k < x.chave[i]; i--) {	 
@@ -166,8 +163,7 @@ class ArvoreB {
                             System.out.println (pred.n);
                             predChave = pred.chave[pred.n - 1];
                             break;
-                        }
-            		    else {
+                        } else {
                             pred = pred.filho[pred.n];
                         }
                     }
@@ -185,8 +181,7 @@ class ArvoreB {
                             if (nextNodo.folha) {
                                 nextChave = nextNodo.chave[nextNodo.n - 1];
                                 break;
-                            }
-                            else {
+                            } else {
                                 nextNodo = nextNodo.filho[nextNodo.n];
                             }
                         }
@@ -225,9 +220,7 @@ class ArvoreB {
                 remover(pred, chave);
                 return;
             }
-        }
-        else
-        {
+        } else {
             for (pos = 0; pos < x.n; pos++) {
                 if (x.chave[pos] > chave) {
                     break;
@@ -258,8 +251,7 @@ class ArvoreB {
                     nb.n--;
                     remover(tmp, chave);
                     return;
-                }
-                else if (pos != 0 && x.filho[pos - 1].n >= T) {
+                } else if (pos != 0 && x.filho[pos - 1].n >= T) {
                     devider = x.chave[pos - 1];
                     nb = x.filho[pos - 1];
                     x.chave[pos - 1] = nb.chave[nb.n - 1];
@@ -278,8 +270,7 @@ class ArvoreB {
                     tmp.n++;
                     remover(tmp, chave);
                     return;
-                }
-        	    else {
+                } else {
                     Nodo lt = null;
                     Nodo rt = null;
                     //boolean last = false;
@@ -287,8 +278,7 @@ class ArvoreB {
                         devider = x.chave[pos];
                         lt = x.filho[pos];
                         rt = x.filho[pos + 1];
-                    }	
-                    else {
+                    } else {
                         devider = x.chave[pos - 1];
                         rt = x.filho[pos];
                         lt = x.filho[pos - 1];
@@ -328,31 +318,45 @@ class ArvoreB {
     public boolean buscar(int k) {
         if (this.contem(raiz, k) != null) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
     
     // Função para mostrar a árvore
     public void mostrar() {
-        mostrar(raiz);
+        mostrar(raiz, 0);
     }  
     // Função para mostrar a árvore pelo Nodo
-    private void mostrar(Nodo x) {      
+    private void mostrar(Nodo x, int nivel) {      
         assert (x == null);
-        System.out.print("( ");
+        System.out.print("[");
         for (int i = 0; i < x.n; i++) {	    
-            System.out.print (x.chave[i] + " ");
-        }
-        System.out.println(")");
-        if (!x.folha) {
-            System.out.println("{ ");
-            for (int i = 0; i < x.n + 1; i++) {	 
-                System.out.print(" ");   
-                mostrar(x.filho[i]);
+            System.out.print(x.chave[i]);
+            if ((i + 1) < x.n) {
+                System.out.print(", ");
             }
-            System.out.println("}");
         }
+        System.out.print("]");
+        if (!x.folha) {
+            System.out.print(":");
+            System.out.println();
+            for (int i = 0; i < nivel; i++) {
+                System.out.print("  ");
+            }
+            nivel++;
+            System.out.println("{");
+            for (int i = 0; i < x.n + 1; i++) {
+                for (int j = 0; j < nivel; j++) {
+                    System.out.print("  ");
+                }
+                mostrar(x.filho[i], nivel);
+            }
+            for (int i = 0; i < (nivel - 1); i++) {
+                System.out.print("  ");
+            }
+            System.out.print("}");
+        }
+        System.out.println();
     } 
 }
