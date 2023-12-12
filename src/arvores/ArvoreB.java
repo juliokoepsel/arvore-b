@@ -10,10 +10,10 @@ class ArvoreB {
 
     // Nodo da árvore
     public class Nodo {          
-        int n;
-        int chave[] = new int[2 * T - 1];
-        Nodo filho[] = new Nodo[2 * T];
-        boolean folha = true;
+        int n; // Número de chaves
+        int chave[] = new int[2 * T - 1]; // Chaves do Nodo
+        Nodo filho[] = new Nodo[2 * T]; // Nodos filhos
+        boolean folha = true; // Nodo é ou não folha
  
         public int encontrar(int k) {                        
             for (int i = 0; i < this.n; i++) {	             
@@ -337,18 +337,22 @@ class ArvoreB {
     // Função para mostrar a árvore
     public void mostrar() {
         mostrar(raiz);
-        System.out.println();
     }  
     // Função para mostrar a árvore pelo Nodo
     private void mostrar(Nodo x) {      
         assert (x == null);
+        System.out.print("( ");
         for (int i = 0; i < x.n; i++) {	    
             System.out.print (x.chave[i] + " ");
         }
-        if (!x.folha) {	
-            for (int i = 0; i < x.n + 1; i++) {	    
-                mostrar (x.filho[i]);
-            } 
-        }   
+        System.out.println(")");
+        if (!x.folha) {
+            System.out.println("{ ");
+            for (int i = 0; i < x.n + 1; i++) {	 
+                System.out.print(" ");   
+                mostrar(x.filho[i]);
+            }
+            System.out.println("}");
+        }
     } 
 }
