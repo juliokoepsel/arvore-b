@@ -282,7 +282,7 @@ class ArvoreB {
         	    else {
                     Nodo lt = null;
                     Nodo rt = null;
-                    boolean last = false;
+                    //boolean last = false;
                     if (pos != x.n) {
                         devider = x.chave[pos];
                         lt = x.filho[pos];
@@ -292,7 +292,7 @@ class ArvoreB {
                         devider = x.chave[pos - 1];
                         rt = x.filho[pos];
                         lt = x.filho[pos - 1];
-                        last = true;
+                        //last = true;
                         pos--;      
                     }
                     for (int i = pos; i < x.n - 1; i++) {
