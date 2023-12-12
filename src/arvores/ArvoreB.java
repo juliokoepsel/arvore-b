@@ -6,7 +6,7 @@ package arvores;
 // https://prepinsta.com/data-structures/deletion-in-b-tree/
 
 class ArvoreB {   
-    private int T; // Grau mínimo da árvore
+    private int T;
 
     // Nodo da árvore
     public class Nodo {          
