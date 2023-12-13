@@ -3,7 +3,7 @@ package arvores;
 public class TesteArvore {
     public static void main(String[] args) {
 
-        ArvoreB arvore = new ArvoreB(2); // Árvore de ordem 4 (t * 2)
+        ArvoreB<Integer> arvore = new ArvoreB<Integer>(2); // Árvore de ordem 5 = (t * 2) + 1
 
         arvore.inserir(8);
         arvore.inserir(9);
