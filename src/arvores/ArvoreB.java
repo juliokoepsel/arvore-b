@@ -13,13 +13,11 @@ public class ArvoreB<T extends Comparable<T>> {
     private int minChildrenSize = minKeySize + 1; // 2
     private int maxKeySize = 2 * minKeySize; // 2
     private int maxChildrenSize = maxKeySize + 1; // 3
-
     private Nodo<T> root = null;
     private int size = 0;
 
     // Construtor ArvoreB vazio (cria uma árvore 3)
     public ArvoreB() {}
-
     // Construtor ArvoreB
     public ArvoreB(int order) {
         this.minKeySize = order;
@@ -27,7 +25,6 @@ public class ArvoreB<T extends Comparable<T>> {
         this.maxKeySize = 2 * minKeySize;
         this.maxChildrenSize = maxKeySize + 1;
     }
-
     // Função de inserção
     public boolean inserir(T value) {
         if (root == null) {
@@ -44,13 +41,11 @@ public class ArvoreB<T extends Comparable<T>> {
                     separar(node);
                     break;
                 }
-
                 T lesser = node.getKey(0);
                 if (value.compareTo(lesser) <= 0) {
                     node = node.getChild(0);
                     continue;
                 }
-
                 int numberOfKeys = node.numberOfKeys();
                 int last = numberOfKeys - 1;
                 T greater = node.getKey(last);
@@ -58,7 +53,6 @@ public class ArvoreB<T extends Comparable<T>> {
                     node = node.getChild(numberOfKeys);
                     continue;
                 }
-
                 for (int i = 1; i < node.numberOfKeys(); i++) {
                     T prev = node.getKey(i - 1);
                     T next = node.getKey(i);
@@ -69,12 +63,9 @@ public class ArvoreB<T extends Comparable<T>> {
                 }
             }
         }
-
         size++;
-
         return true;
     }
-
     // Função de separação de páginas
     private void separar(Nodo<T> nodeToSplit) {
         Nodo<T> node = nodeToSplit;
@@ -122,22 +113,20 @@ public class ArvoreB<T extends Comparable<T>> {
             if (parent.numberOfKeys() > maxKeySize) separar(parent);
         }
     }
-
     // Função para remoção
     public T remover(T value) {
-        T removerd = null;
+        T removido = null;
         Nodo<T> node = this.getNodo(value);
-        removerd = remover(value,node);
-        return removerd;
+        removido = remover(value,node);
+        return removido;
     }
-
     // Função para remoção de Nodo
     private T remover(T value, Nodo<T> node) {
         if (node == null) return null;
 
-        T removerd = null;
+        T removido = null;
         int index = node.indexOf(value);
-        removerd = node.removerKey(value);
+        removido = node.removerKey(value);
         if (node.numberOfChildren() == 0) {
             if (node.parent != null && node.numberOfKeys() < minKeySize) {
                 this.combinado(node);
@@ -156,12 +145,9 @@ public class ArvoreB<T extends Comparable<T>> {
                 this.separar(greatest);
             }
         }
-
         size--;
-
-        return removerd;
+        return removido;
     }
-
     // Função para remoção do maior valor
     private T removerMaiorValor(Nodo<T> node) {
         T value = null;
@@ -170,13 +156,11 @@ public class ArvoreB<T extends Comparable<T>> {
         }
         return value;
     }
-
     // Função para buscar
     public boolean buscar(T value) {
         Nodo<T> node = getNodo(value);
         return (node != null);
     }
-
     // Função para retornar Nodo com certo valor
     private Nodo<T> getNodo(T value) {
         Nodo<T> node = root;
@@ -189,7 +173,6 @@ public class ArvoreB<T extends Comparable<T>> {
                     node = null;
                 continue;
             }
-
             int numberOfKeys = node.numberOfKeys();
             int last = numberOfKeys - 1;
             T greater = node.getKey(last);
@@ -200,13 +183,11 @@ public class ArvoreB<T extends Comparable<T>> {
                     node = null;
                 continue;
             }
-
             for (int i = 0; i < numberOfKeys; i++) {
                 T currentValor = node.getKey(i);
                 if (currentValor.compareTo(value) == 0) {
                     return node;
                 }
-
                 int next = i + 1;
                 if (next <= last) {
                     T nextValor = node.getKey(next);
@@ -222,7 +203,6 @@ public class ArvoreB<T extends Comparable<T>> {
         }
         return null;
     }
-
     // Função para retornar maior Nodo
     private Nodo<T> getMaiorNodo(Nodo<T> nodeToGet) {
         Nodo<T> node = nodeToGet;
@@ -231,7 +211,6 @@ public class ArvoreB<T extends Comparable<T>> {
         }
         return node;
     }
-
     // Função de combinação de páginas
     private boolean combinado(Nodo<T> node) {
         Nodo<T> parent = node.parent;
@@ -321,7 +300,6 @@ public class ArvoreB<T extends Comparable<T>> {
 
         return true;
     }
-
     // Função para retornar o índice do valor anterior
     private int getIndiceDoAnteriorValor(Nodo<T> node, T value) {
         for (int i = 1; i < node.numberOfKeys(); i++) {
@@ -331,7 +309,6 @@ public class ArvoreB<T extends Comparable<T>> {
         }
         return node.numberOfKeys() - 1;
     }
-
     // Função para retornar o índice do próximo valor
     private int getIndiceDoProximoValor(Nodo<T> node, T value) {
         for (int i = 0; i < node.numberOfKeys(); i++) {
@@ -341,18 +318,15 @@ public class ArvoreB<T extends Comparable<T>> {
         }
         return node.numberOfKeys() - 1;
     }
-
     // Função para mostrar a árvore
     public void mostrar() {
         System.out.println(toString());
     }
-
     //Função toString()
     @Override
     public String toString() {
         return TreePrinter.getString(this);
     }
-
     // Classe Nodo
     private static class Nodo<T extends Comparable<T>> {
 
@@ -394,13 +368,13 @@ public class ArvoreB<T extends Comparable<T>> {
         }
 
         private T removerKey(T value) {
-            T removerd = null;
+            T removido = null;
             boolean found = false;
             if (keysSize == 0) return null;
             for (int i = 0; i < keysSize; i++) {
                 if (keys[i].equals(value)) {
                     found = true;
-                    removerd = keys[i];
+                    removido = keys[i];
                 } else if (found) {
                     keys[i - 1] = keys[i];
                 }
@@ -409,7 +383,7 @@ public class ArvoreB<T extends Comparable<T>> {
                 keysSize--;
                 keys[keysSize] = null;
             }
-            return removerd;
+            return removido;
         }
 
         private T removerKey(int index) {
@@ -515,7 +489,6 @@ public class ArvoreB<T extends Comparable<T>> {
             return builder.toString();
         }
     }
-
     // Classe de construção de desenho da árvore
     private static class TreePrinter {
 
@@ -550,5 +523,4 @@ public class ArvoreB<T extends Comparable<T>> {
             return builder.toString();
         }
     }
-
 }
